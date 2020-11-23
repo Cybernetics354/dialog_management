@@ -67,6 +67,23 @@ class DialogManagement {
     _switchingCustomDialog(() => dialog());
   }
 
+  closeNoConnection() {
+    if(_dialogState.noConnection == true && _configuration != null) {
+      _configuration.navigatorKey.currentState.pop();
+    }
+  }
+
+  closeLoading() {
+    if(_dialogState.loadingDialog == true && _configuration != null) {
+      _configuration.navigatorKey.currentState.pop();
+    }
+  }
+
+  closeAll() {
+    closeLoading();
+    closeNoConnection();
+  }
+
   void dispose() {
     _stateStreamController?.close();
   }
