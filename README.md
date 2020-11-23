@@ -69,13 +69,13 @@ take a note, this initializa need navigatorKey for showing dialog, and for usage
 FlatButton(
     child: Text("Show No internet dialog"),
     onPressed: () {
-    DialogManagement.instance.showNoConnectionDialog(title: "Nggak ada koneksi", body: "Coba lagi nanti yak");
+        DialogManagement.instance.showNoConnectionDialog(title: "Nggak ada koneksi", body: "Coba lagi nanti yak");
     },
 ),
 FlatButton(
     child: Text("Show Loading dialog"),
     onPressed: () {
-    DialogManagement.instance.showLoadingDialog();
+        DialogManagement.instance.showLoadingDialog();
     },
 ),
 FlatButton(
@@ -83,10 +83,10 @@ FlatButton(
     onPressed: () {
     DialogManagement.instance.showCustomDialog(() async {
         await showDialog(context: context, builder: (context) {
-        return AlertDialog(
-            title: Text("Custom Dialog"),
-            content: Text("This is custom dialog"),
-        );
+            return AlertDialog(
+                title: Text("Custom Dialog"),
+                content: Text("This is custom dialog"),
+            );
         });
 
         return true;
@@ -101,19 +101,19 @@ we can also listen to it's state with `StreamBuilder`
 StreamBuilder<DialogState>(
     stream: DialogManagement.instance.dialogStateStream,
     builder: (context, snapshot) {
-    if(snapshot.connectionState == ConnectionState.waiting) {
-        DialogManagement.instance.inputStreamValue();
-        return CircularProgressIndicator();
-    }
+        if(snapshot.connectionState == ConnectionState.waiting) {
+            DialogManagement.instance.inputStreamValue();
+            return CircularProgressIndicator();
+        }
 
-    final DialogState data = snapshot.data;
-    return Column(
-        children: [
-        Text("Custom Dialog = " + data.customDialog.toString()),
-        Text("Loading Dialog = " + data.loadingDialog.toString()),
-        Text("No Connection Dialog = " + data.noConnection.toString()),
-        ],
-    );
+        final DialogState data = snapshot.data;
+        return Column(
+            children: [
+                Text("Custom Dialog = " + data.customDialog.toString()),
+                Text("Loading Dialog = " + data.loadingDialog.toString()),
+                Text("No Connection Dialog = " + data.noConnection.toString()),
+            ],
+        );
     },
 ),
 ```
